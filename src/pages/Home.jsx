@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import registro from "../assets/registro.png";
+import consulta from "../assets/consulta.png";
+import bus from "../assets/bus.png";
 
 const Home = () => {
   return (
@@ -19,7 +22,7 @@ const Home = () => {
             className="flex items-center justify-center gap-2 bg-fucsia hover:bg-pink-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md transition duration-300"
           >
             <img
-              src="/registro.png"
+              src={registro}
               alt="Registrar Bus"
               className="w-7 h-7 object-contain"
             />
@@ -31,14 +34,14 @@ const Home = () => {
             className="flex items-center justify-center gap-2 bg-fucsia hover:bg-pink-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md transition duration-300"
           >
             <img
-              src="/consulta.png"
+              src={consulta}
               alt="Registrar Bus"
               className="w-7 h-7 object-contain"
             />
             Consultar Buses
           </Link>
         </div>
-        <img src="/bus.png" alt="Bus CIVA" className="max-w-xl w-full" />
+        <img src={bus} alt="Bus CIVA" className="max-w-xl w-full" />
         </div>
       </main>
     </div>

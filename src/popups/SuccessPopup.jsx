@@ -1,4 +1,5 @@
 import React from "react";
+import cierre from "../assets/cierre.png";
 
 const SuccessPopup = ({ onClose }) => {
   return (
@@ -6,7 +7,7 @@ const SuccessPopup = ({ onClose }) => {
       <div className="bg-white px-6 py-12 rounded-2xl shadow-lg text-center max-w-xl w-full relative">
         <button onClick={onClose} className="absolute top-5 right-5">
           <img
-            src="/cierre.png"
+            src={cierre}
             alt="Cerrar"
             className="w-7 h-7 object-contain hover:scale-110 transition"
           />

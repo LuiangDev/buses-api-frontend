@@ -1,10 +1,11 @@
 import React from "react";
+import bus from "../assets/bus.png";
 
 const BusList = ({ buses, onVerDetalle }) => {
   return (
     <div className="relative overflow-x-auto rounded-xl border-2  bg-white/70 backdrop-blur-sm">
       <img
-        src="/bus.png"
+        src={bus}
         alt="Marca de Agua"
         className="absolute inset-0 w-full h-full object-contain opacity-5 pointer-events-none select-none"
       />

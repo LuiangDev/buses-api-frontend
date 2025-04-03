@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import SelectorMarca from "./SelectorMarca";
 import SuccessPopup from "../popups/SuccessPopup";
-import { Link } from "react-router-dom";
+import bus from "../assets/bus.png";
+import registro from "../assets/registro.png";
 
 const BusForm = () => {
   const [formData, setFormData] = useState({
@@ -87,7 +88,7 @@ const BusForm = () => {
     <div className="relative max-w-6xl mx-auto mt-2 rounded-2xl overflow-hidden">
       {/* Imagen de marca de agua */}
       <img
-        src="/bus.png"
+        src={bus}
         alt="Bus Marca de Agua"
         className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none select-none"
         style={{ zIndex: 0 }}
@@ -169,7 +170,7 @@ const BusForm = () => {
             type="submit"
             className="bg-fucsia hover:bg-pink-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition"
           >
-            <img src="/registro.png" alt="icono" className="w-5 h-5" />
+            <img src={registro} alt="icono" className="w-5 h-5" />
             Registrar Bus
           </button>
         </form>

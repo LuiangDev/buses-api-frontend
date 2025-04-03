@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import flecha from "../assets/flecha.png";
 
 const SelectorMarca = ({
   onMarcaSeleccionada,
@@ -45,7 +46,7 @@ const SelectorMarca = ({
         {/* Imagen personalizada como flecha */}
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
           <img
-            src="/flecha.png" // <-- Asegúrate que esta imagen esté en public/
+            src={flecha} // <-- Asegúrate que esta imagen esté en public/
             alt="desplegar"
             className="w-4 h-4 object-contain"
           />

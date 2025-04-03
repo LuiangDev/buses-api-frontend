@@ -1,4 +1,7 @@
 import React from "react";
+import facebook from "../assets/facebook.png";
+import instagram from "../assets/instagram.png";
+import linkedin from "../assets/linkedin.png";
 
 const Footer = () => {
   return (
@@ -16,7 +19,7 @@ const Footer = () => {
               className="flex items-center justify-center bg-white rounded-full p-2"
             >
               <img
-                src="/facebook.png"
+                src={facebook}
                 alt="Logo CIVA"
                 className="w-5 h-5 object-contain"
               />
@@ -28,7 +31,7 @@ const Footer = () => {
               className="flex items-center justify-center bg-white rounded-full p-2"
             >
               <img
-                src="/instagram.png"
+                src={instagram}
                 alt="Logo CIVA"
                 className="w-5 h-5 object-contain"
               />
@@ -40,7 +43,7 @@ const Footer = () => {
               className="flex items-center justify-center bg-white rounded-full p-2"
             >
               <img
-                src="/linkedin.png"
+                src={linkedin}
                 alt="Logo CIVA"
                 className="w-5 h-5 object-contain"
               />
