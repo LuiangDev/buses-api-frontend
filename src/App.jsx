@@ -1,16 +1,18 @@
-import React from 'react';
-import BusList from './components/BusList';
-import BusForm from './components/BusForm';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
+import Navbar from "./layouts/Navbar";
+import Footer from "./layouts/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <h1>API de Buses - Frontend</h1>
-      <br />
-      <BusForm />
-      <br />
-      <BusList />
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <main className="min-h-screen">
+        <AppRoutes />
+      </main>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

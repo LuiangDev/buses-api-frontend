@@ -1,9 +1,8 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import SelectorMarca from "./SelectorMarca";
+import SuccessPopup from "../popups/SuccessPopup";
 
 const BusForm = () => {
-  const [marcaIdSeleccionada, setMarcaIdSeleccionada] = useState('');
-
   const [formData, setFormData] = useState({
     numeroBus: "",
     placa: "",
@@ -12,75 +11,78 @@ const BusForm = () => {
     marca: { id: "" },
   });
 
+  const [nuevaMarca, setNuevaMarca] = useState("");
+  const [usarNuevaMarca, setUsarNuevaMarca] = useState(false);
+  const [mostrarPopup, setMostrarPopup] = useState(false);
+
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "activo") {
       setFormData({ ...formData, activo: checked });
-    } else if (name === "marcaId") {
-      setFormData({ ...formData, marca: { id: value } });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  const [nuevaMarca, setNuevaMarca] = useState("");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    let marcaIdFinal = marcaIdSeleccionada;
-  
+
+    let marcaIdFinal = formData.marca.id;
+
     try {
-      // Si el usuario eligió crear una nueva marca
-      if (!marcaIdFinal && nuevaMarca.trim() !== '') {
-        const resMarca = await fetch('http://localhost:8080/marca', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre: nuevaMarca })
+      // Si el usuario elige crear una nueva marca
+      if (usarNuevaMarca && nuevaMarca.trim() !== "") {
+        const resMarca = await fetch("http://localhost:8080/marca", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nombre: nuevaMarca }),
         });
-  
+
         if (!resMarca.ok) {
-          alert('Error al registrar la nueva marca');
+          alert("Error al registrar la nueva marca");
           return;
         }
-  
+
         const marcaCreada = await resMarca.json();
         marcaIdFinal = marcaCreada.id;
       }
-  
-      // Preparar el objeto final para el POST /bus
+
+      // Validación si no hay marca
+      if (!marcaIdFinal) {
+        alert("⚠️ Debes seleccionar o registrar una marca");
+        return;
+      }
+
       const busData = {
         ...formData,
-        marca: { id: marcaIdFinal }
+        marca: { id: marcaIdFinal },
       };
-  
-      const resBus = await fetch('http://localhost:8080/bus', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(busData)
+
+      const resBus = await fetch("http://localhost:8080/bus", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(busData),
       });
-  
+
       if (resBus.ok) {
-        alert('🚌 Bus registrado exitosamente');
-  
-        // Reset de estado
+        setMostrarPopup(true);
         setFormData({
-          numeroBus: '',
-          placa: '',
-          caracteristicas: '',
+          numeroBus: "",
+          placa: "",
+          caracteristicas: "",
           activo: true,
-          marca: { id: '' }
+          marca: { id: "" },
         });
-        setNuevaMarca('');
+        setNuevaMarca("");
+        setUsarNuevaMarca(false);
       } else {
-        alert('⚠️ Error al registrar el bus');
+        alert("⚠️ Error al registrar el bus");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('🚨 Error al conectarse con el servidor');
+      console.error("Error:", error);
+      alert("🚨 Error al conectarse con el servidor");
     }
   };
-  
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
@@ -88,59 +90,49 @@ const BusForm = () => {
         Registrar Nuevo Bus
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Número de Bus:
-          </label>
-          <input
-            type="text"
-            name="numeroBus"
-            value={formData.numeroBus}
-            onChange={handleChange}
-            required
-            className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+        <input
+          type="text"
+          name="numeroBus"
+          value={formData.numeroBus}
+          onChange={handleChange}
+          placeholder="Número de Bus"
+          required
+          className="w-full p-2 border rounded"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Placa:
-          </label>
-          <input
-            type="text"
-            name="placa"
-            value={formData.placa}
-            onChange={handleChange}
-            required
-            className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+        <input
+          type="text"
+          name="placa"
+          value={formData.placa}
+          onChange={handleChange}
+          placeholder="Placa"
+          required
+          className="w-full p-2 border rounded"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Características:
-          </label>
-          <input
-            type="text"
-            name="caracteristicas"
-            value={formData.caracteristicas}
-            onChange={handleChange}
-            className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+        <input
+          type="text"
+          name="caracteristicas"
+          value={formData.caracteristicas}
+          onChange={handleChange}
+          placeholder="Características"
+          className="w-full p-2 border rounded"
+        />
 
         <SelectorMarca
-  valorSeleccionado={marcaIdSeleccionada}
-  onMarcaSeleccionada={(id) => {
-    setMarcaIdSeleccionada(id);
-    if (id === 'nueva') {
-      setFormData({ ...formData, marca: { id: '' } });
-    } else {
-      setFormData({ ...formData, marca: { id } });
-    }
-  }}
-  onNuevaMarcaEscrita={(nombre) => setNuevaMarca(nombre)}
-/>
+          valorSeleccionado={usarNuevaMarca ? "nueva" : formData.marca.id}
+          mostrarInputNuevaMarca={usarNuevaMarca}
+          onNuevaMarcaEscrita={setNuevaMarca}
+          onMarcaSeleccionada={(id) => {
+            if (id === "nueva") {
+              setUsarNuevaMarca(true);
+              setFormData({ ...formData, marca: { id: "" } });
+            } else {
+              setUsarNuevaMarca(false);
+              setFormData({ ...formData, marca: { id } });
+            }
+          }}
+        />
 
         <div className="flex items-center gap-2">
           <input
@@ -160,6 +152,13 @@ const BusForm = () => {
           Registrar Bus
         </button>
       </form>
+
+      {mostrarPopup && (
+        <SuccessPopup
+          mensaje="🚌 Bus registrado exitosamente"
+          onClose={() => setMostrarPopup(false)}
+        />
+      )}
     </div>
   );
 };
