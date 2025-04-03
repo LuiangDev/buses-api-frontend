@@ -41,7 +41,7 @@ Plataforma web desarrollada para CIVA, orientada a la gestión de buses. Permite
 ### **Enlaces de Acceso al Proyecto:**
 
 [![FIGMA](https://img.shields.io/badge/figma-9C55F7?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/imvtRXfpP0ok9V0PT2kBvQ/CIVA?node-id=0-1&t=oraq9JYBWYpN8TTF-1)
-[![Sitio web](https://img.shields.io/website?url=https%3A%2F%2Ffipe.cl&style=for-the-badge)](https://heladeria-deploy.vercel.app/)
+[![Sitio web](https://img.shields.io/website?url=https%3A%2F%2Ffipe.cl&style=for-the-badge)]()
 
 ## 📦 Instalación
 
