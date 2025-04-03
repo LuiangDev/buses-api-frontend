@@ -5,6 +5,7 @@ const SuccessPopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white px-6 py-12 rounded-2xl shadow-lg text-center max-w-xl w-full relative">
+        {/* Botón de cierre del popup */}
         <button onClick={onClose} className="absolute top-5 right-5">
           <img
             src={cierre}
@@ -12,12 +13,14 @@ const SuccessPopup = ({ onClose }) => {
             className="w-7 h-7 object-contain hover:scale-110 transition"
           />
         </button>
+        {/* Contenido del popup */}
         <h2 className="text-2xl font-bold text-morado mb-2">
           ¡Bus registrado con éxito!
         </h2>
         <p className="text-black m-6 text-base">
           La información del Bus fue agregada correctamente a los registros.
         </p>
+        {/* Botón de aceptar */}
         <button
           onClick={onClose}
           className="bg-fucsia hover:bg-pink-700 text-white py-2 px-8 rounded-full font-semibold"

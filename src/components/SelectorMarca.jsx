@@ -7,8 +7,10 @@ const SelectorMarca = ({
   valorSeleccionado,
   mostrarInputNuevaMarca,
 }) => {
+  // Estado para almacenar las marcas
   const [marcas, setMarcas] = useState([]);
 
+  // Estado para manejar la nueva marca y el uso de una nueva marca
   useEffect(() => {
     const fetchMarcas = async () => {
       try {
@@ -46,13 +48,14 @@ const SelectorMarca = ({
         {/* Imagen personalizada como flecha */}
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
           <img
-            src={flecha} // <-- Asegúrate que esta imagen esté en public/
+            src={flecha}
             alt="desplegar"
             className="w-4 h-4 object-contain"
           />
         </div>
       </div>
 
+      {/* Input para nueva marca, visible solo si se selecciona "Otra marca" */}   
       {mostrarInputNuevaMarca && (
         <div className="mt-4">
           <label className="block text-xl text-black mb-1">Nueva Marca</label>

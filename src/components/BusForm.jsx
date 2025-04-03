@@ -5,6 +5,7 @@ import bus from "../assets/bus.png";
 import registro from "../assets/registro.png";
 
 const BusForm = () => {
+  // Estado para almacenar los datos del formulario y la nueva marca
   const [formData, setFormData] = useState({
     numeroBus: "",
     placa: "",
@@ -13,10 +14,12 @@ const BusForm = () => {
     marca: { id: "" },
   });
 
+  // Estado para manejar la nueva marca y el uso de una nueva marca
   const [nuevaMarca, setNuevaMarca] = useState("");
   const [usarNuevaMarca, setUsarNuevaMarca] = useState(false);
   const [mostrarPopup, setMostrarPopup] = useState(false);
 
+  // Función para manejar el cambio de los campos del formulario
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "activo") {
@@ -26,6 +29,7 @@ const BusForm = () => {
     }
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -139,7 +143,8 @@ const BusForm = () => {
               className="w-full p-3 border-2 border-fucsia rounded-lg focus:outline-none resize-none"
             />
           </div>
-
+          
+          {/* Selector de Marca */}
           <SelectorMarca
             valorSeleccionado={usarNuevaMarca ? "nueva" : formData.marca.id}
             mostrarInputNuevaMarca={usarNuevaMarca}
@@ -174,7 +179,8 @@ const BusForm = () => {
             Registrar Bus
           </button>
         </form>
-
+        
+        {/* Popup de éxito */}
         {mostrarPopup && (
           <SuccessPopup
             mensaje="🚌 Bus registrado exitosamente"

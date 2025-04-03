@@ -6,6 +6,7 @@ import ConsultarBuses from '../pages/ConsultarBuses';
 
 const AppRoutes = () => {
   return (
+    // Definición de las rutas de la aplicación
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/registrar" element={<RegistrarBus />} />

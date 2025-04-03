@@ -3,6 +3,8 @@ import DetalleBusPopup from "../popups/DetalleBusPopup";
 import BusList from "../components/BusList";
 
 const ConsultarBuses = () => {
+  // Estado para almacenar los buses, el estado de carga, error y bus seleccionado
+  // y el estado del popup, busquedas, paginacion y total de paginas
   const [buses, setBuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,6 +14,8 @@ const ConsultarBuses = () => {
   const [pagina, setPagina] = useState(0);
   const [totalPaginas, setTotalPaginas] = useState(1);
 
+  // Efecto para cargar los buses desde la API al montar el componente
+  // y cada vez que cambia la pagina
   useEffect(() => {
     fetch(`http://localhost:8080/bus?page=${pagina}&size=5`)
       .then((response) => {
@@ -29,11 +33,14 @@ const ConsultarBuses = () => {
       });
   }, [pagina]);
 
+  // Función para manejar el evento de ver detalle del bus
+  // que establece el bus seleccionado y muestra el popup
   const verDetalle = (bus) => {
     setBusSeleccionado(bus);
     setMostrarPopup(true);
   };
 
+  // Filtrar buses según la búsqueda ingresada
   const busesFiltrados = buses.filter((bus) => {
     const filtro = busqueda.trim().toLowerCase();
     return (
@@ -44,6 +51,8 @@ const ConsultarBuses = () => {
     );
   });
 
+  // Renderizar el componente
+  // Mostrar mensaje correspondiente, si hay un error o está cargando
   if (loading) return <p className="text-morado">Cargando...</p>;
   if (error) return <p className="text-red-600">Error: {error.message}</p>;
 
@@ -56,6 +65,7 @@ const ConsultarBuses = () => {
           Buscar por número, placa o marca:
         </label>
         <div className="relative">
+          {/* Input de búsqueda con icono de lupa */}
           <input
             type="text"
             value={busqueda}
@@ -83,14 +93,18 @@ const ConsultarBuses = () => {
         </div>
       </div>
 
+      {/* Mostrar mensaje si no hay buses que coincidan con la búsqueda */}
       {busesFiltrados.length === 0 ? (
         <p className="text-black">
           No hay buses que coincidan con la búsqueda.
         </p>
       ) : (
+        // Mostrar la lista de buses filtrados
+        // y el botón de ver detalle
         <BusList buses={busesFiltrados} onVerDetalle={verDetalle} />
       )}
 
+      {/* Paginación */}
       <div className="mt-6 flex justify-center gap-2 text-sm">
         <button
           onClick={() => setPagina((prev) => Math.max(prev - 1, 0))}
@@ -99,6 +113,7 @@ const ConsultarBuses = () => {
         >
           &lt;
         </button>
+        {/* Botones de paginación */}
         {Array.from({ length: totalPaginas }).map((_, index) => (
           <button
             key={index}
@@ -123,6 +138,7 @@ const ConsultarBuses = () => {
         </button>
       </div>
 
+      {/* Popup para mostrar el detalle del bus seleccionado */}
       {mostrarPopup && busSeleccionado && (
         <DetalleBusPopup
           bus={busSeleccionado}
