@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SelectorMarca from "./SelectorMarca";
 import SuccessPopup from "../popups/SuccessPopup";
+import { Link } from "react-router-dom";
 
 const BusForm = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +31,6 @@ const BusForm = () => {
     let marcaIdFinal = formData.marca.id;
 
     try {
-      // Si el usuario elige crear una nueva marca
       if (usarNuevaMarca && nuevaMarca.trim() !== "") {
         const resMarca = await fetch("http://localhost:8080/marca", {
           method: "POST",
@@ -47,7 +47,6 @@ const BusForm = () => {
         marcaIdFinal = marcaCreada.id;
       }
 
-      // Validación si no hay marca
       if (!marcaIdFinal) {
         alert("⚠️ Debes seleccionar o registrar una marca");
         return;
@@ -85,80 +84,103 @@ const BusForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
-        Registrar Nuevo Bus
-      </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="numeroBus"
-          value={formData.numeroBus}
-          onChange={handleChange}
-          placeholder="Número de Bus"
-          required
-          className="w-full p-2 border rounded"
-        />
+    <div className="relative max-w-6xl mx-auto mt-2 rounded-2xl overflow-hidden">
+      {/* Imagen de marca de agua */}
+      <img
+        src="/bus.png"
+        alt="Bus Marca de Agua"
+        className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none select-none"
+        style={{ zIndex: 0 }}
+      />
 
-        <input
-          type="text"
-          name="placa"
-          value={formData.placa}
-          onChange={handleChange}
-          placeholder="Placa"
-          required
-          className="w-full p-2 border rounded"
-        />
+      {/* Contenido del formulario */}
+      <div className="relative z-10 bg-white bg-opacity-90 rounded-2xl py-4 w-full shadow-lg px-6 md:px-12 lg:px-32">
+        <h2 className="text-4xl md:text-4xl font-bold text-morado mb-10 text-center">
+          Registro de Buses
+        </h2>
 
-        <input
-          type="text"
-          name="caracteristicas"
-          value={formData.caracteristicas}
-          onChange={handleChange}
-          placeholder="Características"
-          className="w-full p-2 border rounded"
-        />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="block mb-1 text-xl text-black">
+              Número de Bus
+            </label>
+            <input
+              type="text"
+              name="numeroBus"
+              value={formData.numeroBus}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border-2 border-fucsia rounded-lg focus:outline-none"
+            />
+          </div>
 
-        <SelectorMarca
-          valorSeleccionado={usarNuevaMarca ? "nueva" : formData.marca.id}
-          mostrarInputNuevaMarca={usarNuevaMarca}
-          onNuevaMarcaEscrita={setNuevaMarca}
-          onMarcaSeleccionada={(id) => {
-            if (id === "nueva") {
-              setUsarNuevaMarca(true);
-              setFormData({ ...formData, marca: { id: "" } });
-            } else {
-              setUsarNuevaMarca(false);
-              setFormData({ ...formData, marca: { id } });
-            }
-          }}
-        />
+          <div>
+            <label className="block mb-1 text-xl text-black">Placa</label>
+            <input
+              type="text"
+              name="placa"
+              value={formData.placa}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border-2 border-fucsia rounded-lg focus:outline-none"
+            />
+          </div>
 
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="activo"
-            checked={formData.activo}
-            onChange={handleChange}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          <div>
+            <label className="block mb-1 text-xl text-black">
+              Características
+            </label>
+            <textarea
+              name="caracteristicas"
+              value={formData.caracteristicas}
+              onChange={handleChange}
+              rows="4"
+              className="w-full p-3 border-2 border-fucsia rounded-lg focus:outline-none resize-none"
+            />
+          </div>
+
+          <SelectorMarca
+            valorSeleccionado={usarNuevaMarca ? "nueva" : formData.marca.id}
+            mostrarInputNuevaMarca={usarNuevaMarca}
+            onNuevaMarcaEscrita={setNuevaMarca}
+            onMarcaSeleccionada={(id) => {
+              if (id === "nueva") {
+                setUsarNuevaMarca(true);
+                setFormData({ ...formData, marca: { id: "" } });
+              } else {
+                setUsarNuevaMarca(false);
+                setFormData({ ...formData, marca: { id } });
+              }
+            }}
           />
-          <label className="text-sm text-gray-700">¿Activo?</label>
-        </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-300"
-        >
-          Registrar Bus
-        </button>
-      </form>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="activo"
+              checked={formData.activo}
+              onChange={handleChange}
+              className="h-4 w-4 text-fucsia rounded-lg accent-fucsia"
+            />
+            <label className="text-xl text-black">¿Activo?</label>
+          </div>
 
-      {mostrarPopup && (
-        <SuccessPopup
-          mensaje="🚌 Bus registrado exitosamente"
-          onClose={() => setMostrarPopup(false)}
-        />
-      )}
+          <button
+            type="submit"
+            className="bg-fucsia hover:bg-pink-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition"
+          >
+            <img src="/registro.png" alt="icono" className="w-5 h-5" />
+            Registrar Bus
+          </button>
+        </form>
+
+        {mostrarPopup && (
+          <SuccessPopup
+            mensaje="🚌 Bus registrado exitosamente"
+            onClose={() => setMostrarPopup(false)}
+          />
+        )}
+      </div>
     </div>
   );
 };

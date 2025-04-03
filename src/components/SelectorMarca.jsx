@@ -24,29 +24,41 @@ const SelectorMarca = ({
 
   return (
     <div className="mb-4">
-      <label className="block text-sm text-gray-600">Marca:</label>
-      <select
-        className="w-full p-2 border rounded"
-        value={valorSeleccionado}
-        onChange={(e) => onMarcaSeleccionada(e.target.value)}
-        required
-      >
-        <option value="">-- Selecciona una marca --</option>
-        {marcas.map((marca) => (
-          <option key={marca.id} value={marca.id}>
-            {marca.nombre}
-          </option>
-        ))}
-        <option value="nueva">➕ Otra marca (agregar nueva)</option>
-      </select>
+      <label className="block text-xl text-black mb-1">Marca de Bus</label>
+
+      <div className="relative">
+        <select
+          className="appearance-none w-full p-3 border-2 border-fucsia rounded-lg  focus:outline-none focus:border-fucsia focus:ring-1 focus:ring-fucsia"
+          value={valorSeleccionado}
+          onChange={(e) => onMarcaSeleccionada(e.target.value)}
+          required
+        >
+          <option value="">Selecciona una marca</option>
+          {marcas.map((marca) => (
+            <option key={marca.id} value={marca.id}>
+              {marca.nombre}
+            </option>
+          ))}
+          <option value="nueva">Otra marca</option>
+        </select>
+
+        {/* Imagen personalizada como flecha */}
+        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+          <img
+            src="/flecha.png" // <-- Asegúrate que esta imagen esté en public/
+            alt="desplegar"
+            className="w-4 h-4 object-contain"
+          />
+        </div>
+      </div>
 
       {mostrarInputNuevaMarca && (
-        <div className="mt-2">
-          <label className="block text-sm text-gray-600">Nueva Marca:</label>
+        <div className="mt-4">
+          <label className="block text-xl text-black mb-1">Nueva Marca</label>
           <input
             type="text"
-            className="w-full p-2 border rounded"
-            placeholder="Ej: King Long"
+            className="w-full p-3 border-fucsia border-2 rounded-lg  focus:outline-none focus:border-fucsia"
+            //placeholder="Ej: Volvo"
             onChange={(e) => onNuevaMarcaEscrita(e.target.value)}
             required
           />

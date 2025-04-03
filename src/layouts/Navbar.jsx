@@ -1,14 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <header className="w-full bg-gradient-to-r from-purple-800 to-pink-500 text-white py-3 px-6 flex justify-between items-center shadow-md">
-      <img src="/logo.png" alt="Logo CIVA" className="h-10" />
+<header className="w-full bg-gradient-to-r from-morado to-fucsia text-white py-7 px-6 md:px-16 lg:px-32 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 shadow-md">
+  <Link to="/">
+  <img src="/logo.png" alt="Logo CIVA" className="h-10" />
+</Link>
+  <span className="text-sm md:text-base font-semibold flex items-center gap-2">
+    <img
+      src="/llamar.png"
+      alt="llamar"
+      className="w-5 h-5 md:w-6 md:h-6 object-contain"
+    />
+    <span className="text-center">01 418-1111</span>
+  </span>
+</header>
 
-      <span className="text-sm font-medium tracking-wide hidden sm:block">
-        📞 01 418-1111
-      </span>
-    </header>
   );
 };
 
