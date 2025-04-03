@@ -3,7 +3,7 @@
 Plataforma web desarrollada para CIVA, orientada a la gestión de buses. Permite registrar, consultar y filtrar información de manera dinámica. Diseñada con un enfoque moderno, intuitivo y visualmente accesible, prioriza tanto la eficiencia funcional como la experiencia del usuario.
 
 <div align="center">
-<img src="/public/Home-mockup.png" alt="portada" />
+<img src="https://github.com/LuiangDev/buses-api-frontend/blob/main/public/Home-mockup.png?raw=true" alt="portada" />
 </div>
 
 ## 🧩 Funcionalidades Clave
