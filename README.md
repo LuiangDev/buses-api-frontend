@@ -6,7 +6,7 @@ Plataforma web desarrollada para CIVA, orientada a la gestión de buses. Permite
 <img src="https://github.com/LuiangDev/buses-api-frontend/blob/main/src/assets/Home-mockup.png?raw=true" alt="portada" />
 </div>
 
-## 🧩 Funcionalidades Clave
+## 🧩 Funcionalidades Clave:
 
 - Registro de buses con posibilidad de agregar nueva marca.
 - Consulta del listado de buses con filtro de búsqueda y paginación.
